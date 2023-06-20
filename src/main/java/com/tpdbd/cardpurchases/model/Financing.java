@@ -1,32 +1,25 @@
 package com.tpdbd.cardpurchases.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.Date;
 
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@DiscriminatorValue("F")
 public class Financing extends Promotion{
 
+    @Column
     private int numberOfQuotas;
 
+    @Column
     private float interes;
 
-    public Financing(String code, String promotionTitle, String nameStore, String cuitStore, Date validityStartDate, Date validityEndDate, String comments, int numberOfQuotas, float interes) {
-        super(code, promotionTitle, nameStore, cuitStore, validityStartDate, validityEndDate, comments);
-        this.numberOfQuotas = numberOfQuotas;
-        this.interes = interes;
-    }
-
-    public int getNumberOfQuotas() {
-        return numberOfQuotas;
-    }
-
-    public void setNumberOfQuotas(int numberOfQuotas) {
-        this.numberOfQuotas = numberOfQuotas;
-    }
-
-    public float getInteres() {
-        return interes;
-    }
-
-    public void setInteres(float interes) {
-        this.interes = interes;
-    }
 }

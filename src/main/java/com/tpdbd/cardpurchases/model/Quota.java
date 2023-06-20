@@ -1,51 +1,36 @@
 package com.tpdbd.cardpurchases.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Table(name = "quota")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Quota {
 
-    private  int number;
+  @Id
+  @Column
+  private String id;
 
-    private float price;
+  @Column
+  private int number;
 
-    private String month;
+  @Column
+  private float price;
 
-    private String year;
+  @Column
+  private String month;
 
-    public Quota(int number, float price, String month, String year) {
-        this.number = number;
-        this.price = price;
-        this.month = month;
-        this.year = year;
-    }
+  @Column
+  private String year;
 
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public String getMonth() {
-        return month;
-    }
-
-    public void setMonth(String month) {
-        this.month = month;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
+  @ManyToOne
+  @JoinColumn(name = "purchase")
+  private MonthlyPayments purchase;
 }

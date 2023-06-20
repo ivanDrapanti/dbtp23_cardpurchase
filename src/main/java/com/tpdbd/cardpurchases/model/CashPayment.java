@@ -1,19 +1,20 @@
 package com.tpdbd.cardpurchases.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@DiscriminatorValue("C")
 public class CashPayment extends Purchase{
 
+    @Column
     private float storeDiscount;
 
-    public CashPayment(String paymentVoucher, String store, String cuitStore, float amount, float finalAmount, float storeDiscount) {
-        super(paymentVoucher, store, cuitStore, amount, finalAmount);
-        this.storeDiscount = storeDiscount;
-    }
-
-    public float getStoreDiscount() {
-        return storeDiscount;
-    }
-
-    public void setStoreDiscount(float storeDiscount) {
-        this.storeDiscount = storeDiscount;
-    }
 }

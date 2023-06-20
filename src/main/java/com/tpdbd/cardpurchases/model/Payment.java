@@ -1,86 +1,47 @@
 package com.tpdbd.cardpurchases.model;
 
-import java.util.Date;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.Date;
+import java.util.Set;
+
+@Entity
+@Table(name = "payment")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Payment {
 
-    private String code;
+  @Id
+  @Column
+  private String code;
 
-    private String month;
+  @Column
+  private String month;
 
-    private String year;
+  @Column
+  private String year;
 
-    private Date firstExpiration;
+  @Column
+  private Date firstExpiration;
 
-    private Date secondExpiration;
+  @Column
+  private Date secondExpiration;
 
-    private float surchase;
+  @Column
+  private float surchase;
 
-    private float totalPrice;
+  @Column
+  private float totalPrice;
 
-    public Payment(String code, String month, String year, Date firstExpiration, Date secondExpiration, float surchase, float totalPrice) {
-        this.code = code;
-        this.month = month;
-        this.year = year;
-        this.firstExpiration = firstExpiration;
-        this.secondExpiration = secondExpiration;
-        this.surchase = surchase;
-        this.totalPrice = totalPrice;
-    }
+  @OneToMany (mappedBy = "id")
+  private Set<Quota> quotasPayment;
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getMonth() {
-        return month;
-    }
-
-    public void setMonth(String month) {
-        this.month = month;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public Date getFirstExpiration() {
-        return firstExpiration;
-    }
-
-    public void setFirstExpiration(Date firstExpiration) {
-        this.firstExpiration = firstExpiration;
-    }
-
-    public Date getSecondExpiration() {
-        return secondExpiration;
-    }
-
-    public void setSecondExpiration(Date secondExpiration) {
-        this.secondExpiration = secondExpiration;
-    }
-
-    public float getSurchase() {
-        return surchase;
-    }
-
-    public void setSurchase(float surchase) {
-        this.surchase = surchase;
-    }
-
-    public float getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(float totalPrice) {
-        this.totalPrice = totalPrice;
-    }
+  @OneToMany (mappedBy = "id")
+  private Set<CashPayment> cashPayments;
 }

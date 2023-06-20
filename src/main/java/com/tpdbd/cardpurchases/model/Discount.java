@@ -1,43 +1,28 @@
 package com.tpdbd.cardpurchases.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.Date;
 
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@DiscriminatorValue("D")
 public class Discount extends Promotion{
 
+    @Column
     private float discountPercentage;
 
+    @Column
     private float priceCap;
 
+    @Column
     private boolean onlyCash;
 
-    public Discount(String code, String promotionTitle, String nameStore, String cuitStore, Date validityStartDate, Date validityEndDate, String comments, float discountPercentage, float priceCap, boolean onlyCash) {
-        super(code, promotionTitle, nameStore, cuitStore, validityStartDate, validityEndDate, comments);
-        this.discountPercentage = discountPercentage;
-        this.priceCap = priceCap;
-        this.onlyCash = onlyCash;
-    }
-
-    public float getDiscountPercentage() {
-        return discountPercentage;
-    }
-
-    public void setDiscountPercentage(float discountPercentage) {
-        this.discountPercentage = discountPercentage;
-    }
-
-    public float getPriceCap() {
-        return priceCap;
-    }
-
-    public void setPriceCap(float priceCap) {
-        this.priceCap = priceCap;
-    }
-
-    public boolean isOnlyCash() {
-        return onlyCash;
-    }
-
-    public void setOnlyCash(boolean onlyCash) {
-        this.onlyCash = onlyCash;
-    }
 }

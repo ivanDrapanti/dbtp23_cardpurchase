@@ -1,62 +1,51 @@
 package com.tpdbd.cardpurchases.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Table(name = "purchase")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+        name = "subclass",
+        discriminatorType = DiscriminatorType.STRING,
+        length = 1)
 public abstract class Purchase {
 
-    private String paymentVoucher;
+  @Id
+  @Column
+  private String id;
 
-    private String store;
+  @Column
+  private String paymentVoucher;
 
-    private String cuitStore;
+  @Column
+  private String store;
 
-    private float amount;
+  @Column
+  private String cuitStore;
 
-    private float finalAmount;
+  @Column
+  private float amount;
 
-    public Purchase(String paymentVoucher, String store, String cuitStore, float amount, float finalAmount) {
-        this.paymentVoucher = paymentVoucher;
-        this.store = store;
-        this.cuitStore = cuitStore;
-        this.amount = amount;
-        this.finalAmount = finalAmount;
-    }
+  @Column
+  private float finalAmount;
 
-    public String getPaymentVoucher() {
-        return paymentVoucher;
-    }
+  @ManyToOne
+  @JoinColumn(name = "card")
+  private Card card;
 
-    public void setPaymentVoucher(String paymentVoucher) {
-        this.paymentVoucher = paymentVoucher;
-    }
+  @Column(name = "type", insertable = false, updatable = false)
+  private String type;
 
-    public String getStore() {
-        return store;
-    }
-
-    public void setStore(String store) {
-        this.store = store;
-    }
-
-    public String getCuitStore() {
-        return cuitStore;
-    }
-
-    public void setCuitStore(String cuitStore) {
-        this.cuitStore = cuitStore;
-    }
-
-    public float getAmount() {
-        return amount;
-    }
-
-    public void setAmount(float amount) {
-        this.amount = amount;
-    }
-
-    public float getFinalAmount() {
-        return finalAmount;
-    }
-
-    public void setFinalAmount(float finalAmount) {
-        this.finalAmount = finalAmount;
-    }
+  @ManyToOne
+  @JoinColumn(name = "promotion")
+  private Promotion validPromotion;
 }

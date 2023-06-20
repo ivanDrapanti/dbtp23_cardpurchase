@@ -1,86 +1,54 @@
 package com.tpdbd.cardpurchases.model;
 
-import java.util.Date;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.Date;
+import java.util.Set;
+
+@Entity
+@Table(name = "promotion")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+        name = "type",
+        discriminatorType = DiscriminatorType.STRING,
+        length = 1)
 public abstract class Promotion {
 
-    private String code;
+  @Id
+  @Column
+  private String code;
 
-    private String promotionTitle;
+  @Column
+  private String promotionTitle;
 
-    private String nameStore;
+  @Column
+  private String nameStore;
 
-    private String cuitStore;
+  @Column
+  private String cuitStore;
 
-    private Date validityStartDate;
+  @Column
+  private Date validityStartDate;
 
-    private Date validityEndDate;
+  @Column
+  private Date validityEndDate;
 
-    private String comments;
+  @Column
+  private String comments;
 
-    public Promotion(String code, String promotionTitle, String nameStore, String cuitStore, Date validityStartDate, Date validityEndDate, String comments) {
-        this.code = code;
-        this.promotionTitle = promotionTitle;
-        this.nameStore = nameStore;
-        this.cuitStore = cuitStore;
-        this.validityStartDate = validityStartDate;
-        this.validityEndDate = validityEndDate;
-        this.comments = comments;
-    }
+  @Column(name = "type", insertable = false, updatable = false)
+  private String type;
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getPromotionTitle() {
-        return promotionTitle;
-    }
-
-    public void setPromotionTitle(String promotionTitle) {
-        this.promotionTitle = promotionTitle;
-    }
-
-    public String getNameStore() {
-        return nameStore;
-    }
-
-    public void setNameStore(String nameStore) {
-        this.nameStore = nameStore;
-    }
-
-    public String getCuitStore() {
-        return cuitStore;
-    }
-
-    public void setCuitStore(String cuitStore) {
-        this.cuitStore = cuitStore;
-    }
-
-    public Date getValidityStartDate() {
-        return validityStartDate;
-    }
-
-    public void setValidityStartDate(Date validityStartDate) {
-        this.validityStartDate = validityStartDate;
-    }
-
-    public Date getValidityEndDate() {
-        return validityEndDate;
-    }
-
-    public void setValidityEndDate(Date validityEndDate) {
-        this.validityEndDate = validityEndDate;
-    }
-
-    public String getComments() {
-        return comments;
-    }
-
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
+  @OneToMany(mappedBy = "validPromotion",
+          fetch = FetchType.LAZY,
+          targetEntity = Purchase.class)
+  private Set<Purchase> purchases;
 }
