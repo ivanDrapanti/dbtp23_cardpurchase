@@ -29,4 +29,10 @@ public class Bank {
     private String direction;
     @ManyToMany
     private Set<CardHolder> members;
+    @OneToMany(mappedBy = "bank",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            targetEntity = Promotion.class)
+    private Set<Promotion> promotions;
 }

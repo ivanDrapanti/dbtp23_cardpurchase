@@ -1,10 +1,12 @@
 package com.tpdbd.cardpurchases.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.Set;
@@ -36,9 +38,13 @@ public abstract class Promotion {
   private String cuitStore;
 
   @Column
+  @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date validityStartDate;
 
   @Column
+  @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date validityEndDate;
 
   @Column
@@ -51,4 +57,8 @@ public abstract class Promotion {
           fetch = FetchType.LAZY,
           targetEntity = Purchase.class)
   private Set<Purchase> purchases;
+
+  @ManyToOne
+  @JoinColumn(name = "banco_cuit")
+  private Bank bank;
 }

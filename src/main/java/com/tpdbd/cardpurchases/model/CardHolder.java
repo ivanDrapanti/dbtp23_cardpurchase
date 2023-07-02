@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "cardHolder")
+@Table(name = "card_holder")
 @Getter
 @Setter
 @NoArgsConstructor

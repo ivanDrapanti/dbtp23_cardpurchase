@@ -20,6 +20,6 @@ public class Financing extends Promotion{
     private int numberOfQuotas;
 
     @Column
-    private float interes;
+    private float interest;
 
 }
