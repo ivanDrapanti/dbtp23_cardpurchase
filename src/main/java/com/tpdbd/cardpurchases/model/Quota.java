@@ -33,4 +33,8 @@ public class Quota {
   @ManyToOne
   @JoinColumn(name = "purchase")
   private MonthlyPayments purchase;
+
+  @ManyToOne
+  @JoinColumn(name = "payment")
+  private Payment payment;
 }

@@ -22,18 +22,18 @@ public class Card {
   private String number;
   @Column
   private String ccv;
-  @Column
-  private String cardholderNameInCard;
+  @Column(name = "card_holder_name_in_card")
+  private String cardHolderNameInCard;
   @Column
   private Date since;
   @Column
   private Date expirationDate;
   @ManyToOne
-  @JoinColumn(name = "cuit")
+  @JoinColumn(name = "bank_cuit")
   private Bank bank;
 
   @ManyToOne
-  @JoinColumn(name = "dni")
+  @JoinColumn(name = "card_holder_dni")
   private CardHolder cardHolder;
 
   @OneToMany(
