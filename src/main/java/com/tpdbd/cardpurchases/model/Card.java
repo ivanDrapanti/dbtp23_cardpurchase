@@ -1,5 +1,7 @@
 package com.tpdbd.cardpurchases.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -28,12 +31,17 @@ public class Card {
   private Date since;
   @Column
   private Date expirationDate;
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY,
+          cascade = CascadeType.ALL)
   @JoinColumn(name = "bank_cuit")
+  @JsonIgnore
   private Bank bank;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY,
+          cascade = CascadeType.ALL,
+          targetEntity = CardHolder.class)
   @JoinColumn(name = "card_holder_dni")
+  @JsonIgnore
   private CardHolder cardHolder;
 
   @OneToMany(
@@ -41,5 +49,15 @@ public class Card {
           fetch = FetchType.LAZY,
           targetEntity = Purchase.class
   )
-  private Set<Purchase> purchases;
+  @JsonIgnore
+  private Set<Purchase> purchases = new HashSet<>(0);
+
+  @JsonProperty("purchases")
+  public Set<String> getPurchasesByIds() {
+    Set<String> ids = new HashSet<>();
+    for (Purchase purchase : purchases) {
+      ids.add(purchase.getId());
+    }
+    return ids;
+  }
 }

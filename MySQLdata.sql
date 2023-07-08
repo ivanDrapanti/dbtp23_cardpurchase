@@ -23,7 +23,7 @@ VALUES ('11111111', '987654321'),
 
 -- Insertar tarjeta 1
 INSERT INTO tpfinal22.card (number, ccv, card_holder_name_in_card, since, expiration_date, bank_cuit, card_holder_dni)
-VALUES ('1111222233334444', '123', 'Nombre Tarjeta 1', '2021-01-01', '2023-12-31', '123456789', '11111111');
+VALUES ('1111222233334444', '123', 'Nombre Tarjeta 1', '2021-01-01', '2023-07-31', '123456789', '11111111');
 
 -- Insertar tarjeta 2
 INSERT INTO tpfinal22.card (number, ccv, card_holder_name_in_card, since, expiration_date, bank_cuit, card_holder_dni)

@@ -38,14 +38,14 @@ public abstract class Purchase {
   @Column
   private float finalAmount;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "card")
   private Card card;
 
   @Column(name = "type", insertable = false, updatable = false)
   private String type;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "promotion")
   private Promotion validPromotion;
 }

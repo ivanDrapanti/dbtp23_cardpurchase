@@ -1,11 +1,13 @@
 package com.tpdbd.cardpurchases.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,23 +18,30 @@ import java.util.Set;
 @AllArgsConstructor
 public class Bank {
 
-    @Id
-    @Column
-    private String cuit;
-    @Column(name = "bank_name") //name is reserved by MySQL
-    private String name;
-    @Column
-    private String address;
-    @Column
-    private String telephone;
-    @Column
-    private String direction;
-    @ManyToMany
-    private Set<CardHolder> members;
-    @OneToMany(mappedBy = "bank",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            targetEntity = Promotion.class)
-    private Set<Promotion> promotions;
+  @Id
+  @Column
+  private String cuit;
+  @Column(name = "bank_name") //name is reserved by MySQL
+  private String name;
+  @Column
+  private String address;
+  @Column
+  private String telephone;
+  @Column
+  private String direction;
+  @OneToMany(mappedBy = "bank",
+          fetch = FetchType.LAZY,
+          cascade = CascadeType.ALL,
+          orphanRemoval = true,
+          targetEntity = Card.class)
+  private Set<Card> cards = new HashSet<>(0);
+  @ManyToMany(fetch = FetchType.LAZY,
+          cascade = CascadeType.ALL)
+  private Set<CardHolder> members = new HashSet<>(0);
+  @OneToMany(mappedBy = "bank",
+          fetch = FetchType.LAZY,
+          cascade = CascadeType.ALL,
+          orphanRemoval = true,
+          targetEntity = Promotion.class)
+  private Set<Promotion> promotions = new HashSet<>(0);
 }
