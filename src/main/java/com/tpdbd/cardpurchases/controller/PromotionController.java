@@ -4,6 +4,7 @@ import com.tpdbd.cardpurchases.model.Discount;
 import com.tpdbd.cardpurchases.services.PromotionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,18 @@ public class PromotionController {
       return ResponseEntity.ok("Descuento creado exitosamente.");
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al crear el descuento.");
+    }
+  }
+
+  @DeleteMapping("/promotions/{code}")
+  public ResponseEntity<String> deletePromotion(
+          @PathVariable String code
+  ) {
+    try {
+      promotionService.deleteDiscount(code);
+      return ResponseEntity.ok("Promoción eliminado exitosamente.");
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al eliminar el descuento.");
     }
   }
 }

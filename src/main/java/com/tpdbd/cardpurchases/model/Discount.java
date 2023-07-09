@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Entity
 @Getter
 @Setter
@@ -17,12 +15,12 @@ import java.util.Date;
 public class Discount extends Promotion{
 
     @Column
-    private float discountPercentage;
+    private Float discountPercentage;
 
     @Column
-    private float priceCap;
+    private Float priceCap;
 
     @Column
-    private boolean onlyCash;
+    private Boolean onlyCash;
 
 }

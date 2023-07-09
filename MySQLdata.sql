@@ -63,3 +63,11 @@ WHERE id = '2';
 UPDATE tpfinal22.quota
 SET payment = 'code3'
 WHERE id = '3';
+
+INSERT INTO tpfinal22.promotion (code, promotion_title, name_store, cuit_store, validity_start_date, validity_end_date, comments, type, banco_cuit, discount_percentage)
+VALUES ('ABC123', 'Promo de verano', 'Mi Tienda', '123456789', '2023-07-01 00:00:00', '2023-07-31 23:59:59', 'Descuento del 20%', 'D', '123456789', '20');
+
+-- Insertar Purchase (Cash Payment ) with tarjeta 1
+INSERT INTO tpfinal22.purchase (id, payment_voucher, store, cuit_store, card,  amount, final_amount, type, store_discount, promotion)
+VALUES ('2', '456', 'Walmart', '2321', '1111222233334444','100', '80', 'C', '0', 'ABC123');
+
