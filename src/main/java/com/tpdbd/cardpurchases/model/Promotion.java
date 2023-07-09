@@ -1,6 +1,8 @@
 package com.tpdbd.cardpurchases.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -56,9 +58,16 @@ public abstract class Promotion {
   @OneToMany(mappedBy = "validPromotion",
           fetch = FetchType.LAZY,
           targetEntity = Purchase.class)
+  @JsonIgnore
   private Set<Purchase> purchases;
 
   @ManyToOne
   @JoinColumn(name = "banco_cuit")
+  @JsonIgnore
   private Bank bank;
+
+  @JsonProperty("bank")
+  public String getBankId() {
+    return this.bank != null ? this.bank.getCuit() : null;
+  }
 }
