@@ -26,4 +26,15 @@ public class PurchaseController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
+  @GetMapping("purchases/{type}/totalPrice")
+  public ResponseEntity<? extends Object> getTotalPriceById(
+          @PathVariable String type,
+          @RequestParam(name = "id") String id
+  ) {
+    try {
+      return ResponseEntity.ok(this.service.getTotalPricePurchase(type, id));
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
 }
