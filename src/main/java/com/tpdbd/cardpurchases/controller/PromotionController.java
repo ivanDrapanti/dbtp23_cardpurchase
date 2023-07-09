@@ -53,4 +53,13 @@ public class PromotionController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error trayendo las promociones");
     }
   }
+
+  @GetMapping("/promotions/best")
+  public ResponseEntity getBestPromotion(){
+    try {
+      return ResponseEntity.ok(promotionService.getBestPromotion());
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error trayendo la mejor promocion");
+    }
+  }
 }

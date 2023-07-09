@@ -44,4 +44,8 @@ public class PromotionService {
   public Set<Promotion> getPromotion(String bank, Date startDate, Date endDate) {
     return this.promotionRepository.findByValidityStartDateLessThanAndValidityEndDateGreaterThanAndBankCuit(startDate, endDate, bank);
   }
+
+  public Promotion getBestPromotion() {
+    return this.promotionRepository.findPromotionWithMaxPurchaseCount();
+  }
 }
