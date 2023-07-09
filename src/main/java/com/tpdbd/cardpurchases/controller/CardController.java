@@ -14,13 +14,21 @@ public class CardController {
     this.cardService = cardService;
   }
 
-  @GetMapping("/card/{days}")
-  public ResponseEntity<? extends Object> getCards(
+  @GetMapping("/cards/{days}")
+  public ResponseEntity<? extends Object> getCardsToExpirate(
           @PathVariable String days){
     try {
       return ResponseEntity.ok(cardService.getCardsToExpirate(days));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al obtener tarjetas.");
+    }
+  }
+  @GetMapping("/cards/buyers")
+  public ResponseEntity<? extends Object> getTop10Cards(){
+    try {
+      return ResponseEntity.ok(cardService.getTop10BestBuyers());
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al obtener las 10 tarjetas.");
     }
   }
 }
