@@ -1,5 +1,7 @@
 package com.tpdbd.cardpurchases.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,6 +42,7 @@ public abstract class Purchase {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "card")
+  @JsonIgnore
   private Card card;
 
   @Column(name = "type", insertable = false, updatable = false)
@@ -48,4 +51,9 @@ public abstract class Purchase {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "promotion")
   private Promotion validPromotion;
+
+  @JsonProperty("card")
+  public String getCardNumber() {
+    return this.card != null ? this.card.getNumber() : null;
+  }
 }

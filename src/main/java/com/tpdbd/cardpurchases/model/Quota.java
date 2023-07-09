@@ -1,5 +1,6 @@
 package com.tpdbd.cardpurchases.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,9 +33,11 @@ public class Quota {
 
   @ManyToOne
   @JoinColumn(name = "purchase")
+  @JsonIgnore
   private MonthlyPayments purchase;
 
   @ManyToOne
   @JoinColumn(name = "payment")
+  @JsonIgnore
   private Payment payment;
 }

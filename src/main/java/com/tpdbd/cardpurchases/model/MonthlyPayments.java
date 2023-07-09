@@ -23,7 +23,7 @@ public class MonthlyPayments extends Purchase {
   private int numberOfQuotas;
 
   @OneToMany(mappedBy = "purchase",
-          fetch = FetchType.LAZY,
+          fetch = FetchType.EAGER,
           targetEntity = Quota.class
   )
   private Set<Quota> quotas;
