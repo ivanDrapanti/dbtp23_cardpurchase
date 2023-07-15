@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "purchase")
 @Getter
@@ -39,6 +41,9 @@ public abstract class Purchase {
 
   @Column
   private float finalAmount;
+
+  @Column
+  private Date date;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "card")

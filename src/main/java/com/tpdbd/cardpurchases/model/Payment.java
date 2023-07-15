@@ -1,6 +1,8 @@
 package com.tpdbd.cardpurchases.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +11,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -46,8 +49,33 @@ public class Payment {
   private float totalPrice;
 
   @OneToMany (mappedBy = "id")
-  private Set<Quota> quotasPayment;
+  @JsonIgnore
+  private Set<Quota> quotasPayment = new HashSet<>();
 
   @OneToMany (mappedBy = "id")
-  private Set<CashPayment> cashPayments;
+  @JsonIgnore
+  private Set<CashPayment> cashPayments = new HashSet<>();
+
+  public void addQuota(Quota quota){
+    quotasPayment.add(quota);
+  }
+  public void addCashPayment(CashPayment cashPayment){
+    cashPayments.add(cashPayment);
+  }
+  @JsonProperty("quotas")
+  public Set<String> getQuotas(){
+    Set<String> ids = new HashSet<>();
+    for (Quota quota : quotasPayment) {
+      ids.add(quota.getId());
+    }
+    return ids;
+  }
+  @JsonProperty("cashPayments")
+  public Set<String> getCashPayments(){
+    Set<String> ids = new HashSet<>();
+    for (CashPayment cashPayment : cashPayments) {
+      ids.add(cashPayment.getId());
+    }
+    return ids;
+  }
 }

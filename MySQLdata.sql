@@ -30,8 +30,8 @@ INSERT INTO tpfinal22.card (number, ccv, card_holder_name_in_card, since, expira
 VALUES ('5555666677778888', '456', 'Nombre Tarjeta 2', '2022-02-01', '2024-12-31', '987654321', '22222222');
 
 -- Insertar Purchase (Monthly Payments) with tarjeta 1
-INSERT INTO tpfinal22.purchase (id, payment_voucher, store, cuit_store, card,  amount, final_amount, type, interest, number_of_quotas)
-VALUES ('1', '456', 'Walmart', '2321', '1111222233334444','100', '120', 'M', '20', '12');
+INSERT INTO tpfinal22.purchase (id, payment_voucher, store, cuit_store, date, card,  amount, final_amount, type, interest, number_of_quotas)
+VALUES ('1', '456', 'Walmart', '2321', '2023-06-20 00:00:00', '1111222233334444','100', '120', 'M', '20', '12');
 
 -- Insert quotas according to Purchase ID 1
 INSERT INTO tpfinal22.quota (id, number, price, month, year, purchase)
@@ -68,6 +68,6 @@ INSERT INTO tpfinal22.promotion (code, promotion_title, name_store, cuit_store, 
 VALUES ('ABC123', 'Promo de verano', 'Mi Tienda', '123456789', '2023-07-01 00:00:00', '2023-07-31 23:59:59', 'Descuento del 20%', 'D', '123456789', '20');
 
 -- Insertar Purchase (Cash Payment ) with tarjeta 1
-INSERT INTO tpfinal22.purchase (id, payment_voucher, store, cuit_store, card,  amount, final_amount, type, store_discount, promotion)
-VALUES ('2', '456', 'Walmart', '2321', '1111222233334444','100', '80', 'C', '0', 'ABC123');
-
+INSERT INTO tpfinal22.purchase (id, payment_voucher, store, cuit_store, date, card,  amount, final_amount, type, store_discount, promotion)
+VALUES ('2', '456', 'Walmart', '2321', '2023-07-20 00:00:00', '1111222233334444','100', '80', 'C', '0', 'ABC123'),
+       ('3', '456', 'Walmart', '2321', '2023-07-20 00:00:00', '1111222233334444','100', '80', 'C', '0', 'ABC123');
