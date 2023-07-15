@@ -35,6 +35,11 @@ public class CardHolder {
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JsonIgnore
+  @JoinTable(
+          name = "bank_cardholder",
+          joinColumns = @JoinColumn(name = "cardholder_id"),
+          inverseJoinColumns = @JoinColumn(name = "bank_id")
+  )
   private Set<Bank> banks = new HashSet<>(0);
   @OneToMany(mappedBy = "cardHolder",
           fetch = FetchType.LAZY,

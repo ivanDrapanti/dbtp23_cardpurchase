@@ -13,10 +13,10 @@ VALUES ('22222222', 'Nombre Tarjetahabiente 2', '22222222222', 'Dirección Tarje
 -- Data for CardHolder
 
 -- Align CardHolder and Bank
-INSERT INTO tpfinal22.card_holder_banks (card_holder_dni, banks_cuit)
+INSERT INTO tpfinal22.bank_cardholder (cardholder_id, bank_id)
 VALUES ('11111111', '123456789'),
        ('22222222', '123456789');
-INSERT INTO tpfinal22.card_holder_banks (card_holder_dni, banks_cuit)
+INSERT INTO tpfinal22.bank_cardholder (cardholder_id, bank_id)
 VALUES ('11111111', '987654321'),
        ('22222222', '987654321');
 -- Align CardHolder and Bank

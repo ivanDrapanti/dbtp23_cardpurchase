@@ -36,6 +36,11 @@ public class Bank {
   private Set<Card> cards = new HashSet<>(0);
   @ManyToMany(fetch = FetchType.LAZY,
           cascade = CascadeType.ALL)
+  @JoinTable(
+          name = "bank_cardholder",
+          joinColumns = @JoinColumn(name = "bank_id"),
+          inverseJoinColumns = @JoinColumn(name = "cardholder_id")
+  )
   private Set<CardHolder> members = new HashSet<>(0);
   @OneToMany(mappedBy = "bank",
           fetch = FetchType.LAZY,
