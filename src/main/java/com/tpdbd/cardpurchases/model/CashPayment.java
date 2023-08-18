@@ -1,20 +1,20 @@
 package com.tpdbd.cardpurchases.model;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-@Entity
+
+@Document(collection = "purchase")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@DiscriminatorValue("C")
 public class CashPayment extends Purchase{
 
-    @Column
+    @Field("store_discount")
     private float storeDiscount;
-
 }

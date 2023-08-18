@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
+import static java.util.Objects.isNull;
+
 @Service
 public class PromotionService {
   private final PromotionRepository promotionRepository;
@@ -24,8 +26,9 @@ public class PromotionService {
     this.purchaseRepository = purchaseRepository;
   }
   public void createDiscount(String bankCuit, Discount discount){
-    Bank bank = bancoRepository.findById(bankCuit)
-            .orElseThrow(() -> new NoSuchElementException("Banco no encontrado con el CUIT: " + bankCuit));
+    Bank bank = bancoRepository.findByCuit(bankCuit);
+    if(isNull(bank))
+      throw new NoSuchElementException("Banco no encontrado con el CUIT: " + bankCuit);
 
     discount.setBank(bank);
     promotionRepository.save(discount);
@@ -33,7 +36,7 @@ public class PromotionService {
 
   public void deleteDiscount(String code) {
     checkIfIsUsedByPurchase(code);
-    promotionRepository.deleteById(code);
+    promotionRepository.deleteByCode(code);
   }
 
   private void checkIfIsUsedByPurchase(String code) {
@@ -42,10 +45,11 @@ public class PromotionService {
   }
 
   public Set<Promotion> getPromotion(String bank, Date startDate, Date endDate) {
-    return this.promotionRepository.findByValidityStartDateLessThanAndValidityEndDateGreaterThanAndBankCuit(startDate, endDate, bank);
+    return this.promotionRepository.findByValidityStartDateLessThanAndValidityEndDateGreaterThanAndBank(startDate, endDate, bank);
   }
 
   public Promotion getBestPromotion() {
-    return this.promotionRepository.findPromotionWithMaxPurchaseCount();
+    Promotion promotion = this.promotionRepository.findPromotionWithMaxPurchaseCount();
+    return this.promotionRepository.findById(promotion.getId()).get();
   }
 }

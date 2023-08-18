@@ -3,19 +3,21 @@ package com.tpdbd.cardpurchases.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "payment")
+@Document(collection = "payment")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,37 +25,26 @@ import java.util.Set;
 public class Payment {
 
   @Id
-  @Column
+  private String id;
   private String code;
-
-  @Column
   private String month;
-
-  @Column
   private String year;
-
-  @Column
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @Field("first_expiration")
   private Date firstExpiration;
-
-  @Column
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @Field("second_expiration")
   private Date secondExpiration;
-
-  @Column
   private float surcharge;
-
-  @Column
+  @Field("total_price")
   private float totalPrice;
-
-  @OneToMany (mappedBy = "id")
   @JsonIgnore
+  @DBRef
   private Set<Quota> quotasPayment = new HashSet<>();
-
-  @OneToMany (mappedBy = "id")
   @JsonIgnore
+  @DBRef
   private Set<CashPayment> cashPayments = new HashSet<>();
 
   public void addQuota(Quota quota){

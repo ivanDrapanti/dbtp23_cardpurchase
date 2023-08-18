@@ -2,18 +2,18 @@ package com.tpdbd.cardpurchases.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
-@Entity
-@Table(name = "card")
+@Document(collection = "card")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,37 +21,24 @@ import java.util.Set;
 public class Card {
 
   @Id
-  @Column
+  private String id;
   private String number;
-  @Column
   private String ccv;
-  @Column(name = "card_holder_name_in_card")
+  @Field("card_holder_name_in_card")
   private String cardHolderNameInCard;
-  @Column
   private Date since;
-  @Column
+  @Field("expiration_date")
   private Date expirationDate;
-  @ManyToOne(fetch = FetchType.LAZY,
-          cascade = CascadeType.ALL)
-  @JoinColumn(name = "bank_cuit")
   @JsonIgnore
+  @DBRef
   private Bank bank;
-
-  @ManyToOne(fetch = FetchType.LAZY,
-          cascade = CascadeType.ALL,
-          targetEntity = CardHolder.class)
-  @JoinColumn(name = "card_holder_dni")
   @JsonIgnore
+  @DBRef
+  @Field("card_holder")
   private CardHolder cardHolder;
-
-  @OneToMany(
-          mappedBy = "card",
-          fetch = FetchType.LAZY,
-          targetEntity = Purchase.class
-  )
   @JsonIgnore
-  private Set<Purchase> purchases = new HashSet<>(0);
-
+  @DBRef(lazy = true)
+  private List<Purchase> purchases;
   @JsonProperty("purchases")
   public Set<String> getPurchasesByIds() {
     Set<String> ids = new HashSet<>();

@@ -1,0 +1,52 @@
+//Bank info
+[
+  {"_id":{"$oid":"64bc24d47e77ae12e74340fc"},"cuit":"123456789","address":"Address del Banco A","telephone":"1234567890","direction":"Dirección del Banco A","members":[{"$ref":"card_holder","$id":{"$oid":"64bc25737e77ae12e7434100"}}],"promotions":[{"$ref":"promotion","$id":{"$oid":"64c7086ef9f4d8d34f9fb6a7"}}],"cards":[{"$ref":"card","$id":{"$oid":"64c6ec67f9f4d8d34f9fb66c"}}],"name":"Banco A"},
+  {"_id":{"$oid":"64bc24d47e77ae12e74340fd"},"cuit":"987654321","address":"Address del Banco B","telephone":"0987654321","direction":"Dirección del Banco B","members":[{"$ref":"card_holder","$id":{"$oid":"64bc25737e77ae12e7434101"}}],"cards":[{"$ref":"card","$id":{"$oid":"64c6ec67f9f4d8d34f9fb66d"}}],"name":"Banco B"}
+]
+
+//card_holder
+[
+  {"_id":{"$oid":"64bc25737e77ae12e7434100"},"dni":"11111111","complete_name":"Nombre Tarjetahabiente 1","cuil":"11111111111","address":"Dirección Tarjetahabiente 1","telephone":"1234567890","entry":{"$date":"2021-01-01T00:00:00.000Z"},"banks":[{"$ref":"bank","$id":{"$oid":"64bc24d47e77ae12e74340fc"}}],"cards":[{"$ref":"card","$id":{"$oid":"64c6ec67f9f4d8d34f9fb66c"}}]},
+  {"_id":{"$oid":"64bc25737e77ae12e7434101"},"dni":"22222222","complete_name":"Nombre Tarjetahabiente 2","cuil":"22222222222","address":"Dirección Tarjetahabiente 2","telephone":"0987654321","entry":{"$date":"2021-02-01T00:00:00.000Z"},"banks":[{"$ref":"bank","$id":{"$oid":"64bc24d47e77ae12e74340fd"}}],"cards":[{"$ref":"card","$id":{"$oid":"64c6ec67f9f4d8d34f9fb66d"}}]}
+]
+
+//card
+[
+  {"_id":{"$oid":"64c6ec67f9f4d8d34f9fb66d"},"number":"5555666677778888","ccv":"456","card_holder_name_in_card":"Nombre Tarjeta 2","since":{"$date":"2022-02-01T03:00:00.000Z"},"bank":{"$ref":"bank","$id":{"$oid":"64bc24d47e77ae12e74340fd"}},"card_holder":{"$ref":"card_holder","$id":{"$oid":"64bc25737e77ae12e7434101"}},"expiration_date":{"$date":"2024-12-31T03:00:00.000Z"}},
+  {"_id":{"$oid":"64c6ec67f9f4d8d34f9fb66c"},"number":"1111222233334444","ccv":"123","card_holder_name_in_card":"Nombre Tarjeta 1","since":{"$date":"2021-01-01T03:00:00.000Z"},"expiration_date":{"$date":"2023-08-31T03:00:00.000Z"},"purchases":[{"$ref":"purchase","$id":{"$oid":"64bc258c7e77ae12e7434108"}},{"$ref":"purchase","$id":{"$oid":"64bc258c7e77ae12e7434109"}},{"$ref":"purchase","$id":{"$oid":"64bc258c7e77ae12e743410a"}}],"bank":{"$ref":"bank","$id":{"$oid":"64bc24d47e77ae12e74340fc"}},"card_holder":{"$ref":"card_holder","$id":{"$oid":"64bc25737e77ae12e7434100"}}}
+]
+
+// purchase
+[
+  {"_id":{"$oid":"64bc258c7e77ae12e7434108"},"interest":20,"number_of_quotas":12,"quotas":[{"$ref":"quota","$id":{"$oid":"64bc25967e77ae12e7434112"}},{"$ref":"quota","$id":{"$oid":"64bc25967e77ae12e7434115"}},{"$ref":"quota","$id":{"$oid":"64bc25967e77ae12e743410d"}},{"$ref":"quota","$id":{"$oid":"64bc25967e77ae12e7434111"}},{"$ref":"quota","$id":{"$oid":"64bc25967e77ae12e743410e"}},{"$ref":"quota","$id":{"$oid":"64bc25967e77ae12e7434114"}},{"$ref":"quota","$id":{"$oid":"64bc25967e77ae12e7434118"}},{"$ref":"quota","$id":{"$oid":"64bc25967e77ae12e7434117"}},{"$ref":"quota","$id":{"$oid":"64bc25967e77ae12e7434110"}},{"$ref":"quota","$id":{"$oid":"64bc25967e77ae12e7434113"}},{"$ref":"quota","$id":{"$oid":"64bc25967e77ae12e743410f"}},{"$ref":"quota","$id":{"$oid":"64bc25967e77ae12e7434116"}}],"payment_voucher":"456","store":"Walmart","cuit_store":"2321","amount":100,"final_amount":120,"date":{"$date":"2023-06-20T03:00:00.000Z"},"type":"M","_class":"com.tpdbd.cardpurchases.model.MonthlyPayments","card":{"$ref":"card","$id":{"$oid":"64c6ec67f9f4d8d34f9fb66c"}}},
+  {"_id":{"$oid":"64bc258c7e77ae12e7434109"},"store_discount":0,"payment_voucher":"456","store":"Walmart","cuit_store":"2321","amount":100,"final_amount":80,"date":{"$date":"2023-07-20T03:00:00.000Z"},"card":{"$ref":"card","$id":{"$oid":"64c6ec67f9f4d8d34f9fb66c"}},"type":"C","valid_promotion":{"_id":{"$oid":"64c7086ef9f4d8d34f9fb6a7"},"discount_percentage":20,"code":"ABC123","promotion_title":"Promo de verano","name_store":"Mi Tienda","cuit_store":"123456789","validity_start_date":{"$date":"2023-07-01T03:00:00.000Z"},"validity_end_date":{"$date":"2023-08-01T02:59:59.000Z"},"comments":"Descuento del 20%","type":"D","purchases":[{"$ref":"purchase","$id":{"$oid":"64bc258c7e77ae12e7434109"}},{"$ref":"purchase","$id":{"$oid":"64bc258c7e77ae12e743410a"}}],"bank":{"$ref":"bank","$id":{"$oid":"64bc24d47e77ae12e74340fc"}},"_class":"com.tpdbd.cardpurchases.model.Discount"},"_class":"com.tpdbd.cardpurchases.model.CashPayment"}
+  {"_id":{"$oid":"64bc258c7e77ae12e743410a"},"store_discount":0,"payment_voucher":"456","store":"Walmart","cuit_store":"2321","amount":100,"final_amount":80,"date":{"$date":"2023-07-20T03:00:00.000Z"},"card":{"$ref":"card","$id":{"$oid":"64c6ec67f9f4d8d34f9fb66c"}},"type":"C","valid_promotion":{"_id":{"$oid":"64c7086ef9f4d8d34f9fb6a7"},"discount_percentage":20,"code":"ABC123","promotion_title":"Promo de verano","name_store":"Mi Tienda","cuit_store":"123456789","validity_start_date":{"$date":"2023-07-01T03:00:00.000Z"},"validity_end_date":{"$date":"2023-08-01T02:59:59.000Z"},"comments":"Descuento del 20%","type":"D","purchases":[{"$ref":"purchase","$id":{"$oid":"64bc258c7e77ae12e7434109"}},{"$ref":"purchase","$id":{"$oid":"64bc258c7e77ae12e743410a"}}],"bank":{"$ref":"bank","$id":{"$oid":"64bc24d47e77ae12e74340fc"}},"_class":"com.tpdbd.cardpurchases.model.Discount"},"_class":"com.tpdbd.cardpurchases.model.CashPayment"}
+]
+
+
+//quota
+
+[{"_id":{"$oid":"64bc25967e77ae12e743410d"},"number":4561,"price":"10","month":6,"year":2023,"monthly_payments":{"$ref":"purchase","$id":{"$oid":"64bc24d47e77ae12e74340fd"}},"payment":{"$ref":"payment","$id":{"$oid":"64c6efe4f9f4d8d34f9fb674"}}},
+{"_id":{"$oid":"64bc25967e77ae12e743410e"},"number":4562,"price":"10","month":7,"year":2023,"monthly_payments":{"$ref":"purchase","$id":{"$oid":"64bc24d47e77ae12e74340fd"}},"payment":{"$ref":"payment","$id":{"$oid":"64c6efe4f9f4d8d34f9fb675"}}},
+{"_id":{"$oid":"64bc25967e77ae12e743410f"},"number":4563,"price":"10","month":8,"year":2023,"monthly_payments":{"$ref":"purchase","$id":{"$oid":"64bc24d47e77ae12e74340fd"}},"payment":{"$ref":"payment","$id":{"$oid":"64c6efe4f9f4d8d34f9fb676"}}},
+{"_id":{"$oid":"64bc25967e77ae12e7434110"},"number":4564,"price":"10","month":9,"year":2023,"monthly_payments":{"$ref":"purchase","$id":{"$oid":"64bc24d47e77ae12e74340fd"}}},
+{"_id":{"$oid":"64bc25967e77ae12e7434111"},"number":4565,"price":"10","month":10,"year":2023,"monthly_payments":{"$ref":"purchase","$id":{"$oid":"64bc24d47e77ae12e74340fd"}}},
+{"_id":{"$oid":"64bc25967e77ae12e7434112"},"number":4566,"price":"10","month":11,"year":2023,"monthly_payments":{"$ref":"purchase","$id":{"$oid":"64bc24d47e77ae12e74340fd"}}},
+{"_id":{"$oid":"64bc25967e77ae12e7434113"},"number":4567,"price":"10","month":12,"year":2023,"monthly_payments":{"$ref":"purchase","$id":{"$oid":"64bc24d47e77ae12e74340fd"}}},
+{"_id":{"$oid":"64bc25967e77ae12e7434114"},"number":4568,"price":"10","month":1,"year":2024,"monthly_payments":{"$ref":"purchase","$id":{"$oid":"64bc24d47e77ae12e74340fd"}}},
+{"_id":{"$oid":"64bc25967e77ae12e7434115"},"number":4569,"price":"10","month":2,"year":2024,"monthly_payments":{"$ref":"purchase","$id":{"$oid":"64bc24d47e77ae12e74340fd"}}},
+{"_id":{"$oid":"64bc25967e77ae12e7434116"},"number":4570,"price":"10","month":3,"year":2024,"monthly_payments":{"$ref":"purchase","$id":{"$oid":"64bc24d47e77ae12e74340fd"}}},
+{"_id":{"$oid":"64bc25967e77ae12e7434117"},"number":4571,"price":"10","month":4,"year":2024,"monthly_payments":{"$ref":"purchase","$id":{"$oid":"64bc24d47e77ae12e74340fd"}}},
+{"_id":{"$oid":"64bc25967e77ae12e7434118"},"number":4572,"price":"10","month":5,"year":2024,"monthly_payments":{"$ref":"purchase","$id":{"$oid":"64bc24d47e77ae12e74340fd"}}}
+]
+
+//payment
+[{"_id":{"$oid":"64c6efe4f9f4d8d34f9fb674"},"code":"code1","month":"6","year":"2023","first_expiration":{"$date":"2023-07-01T18:00:00.000Z"},"second_expiration":{"$date":"2023-08-01T15:00:00.000Z"},"surcharge":0,"total_price":10,"quotasPayment":[{"$ref":"quota","$id":{"$oid":"64bc25967e77ae12e743410d"}}],"cashPayments":[],"_class":"com.tpdbd.cardpurchases.model.Payment"},
+{"_id":{"$oid":"64c6efe4f9f4d8d34f9fb675"},"code":"code2","month":7,"year":2023,"first_expiration":{"$date":"2023-08-20T03:00:00.000Z"},"second_expiration":{"$date":"2023-09-20T03:00:00.000Z"},"surcharge":"0","total_price":"10","quotasPayment":[{"$ref":"quota","$id":{"$oid":"64bc25967e77ae12e743410e"}}]},
+{"_id":{"$oid":"64c6efe4f9f4d8d34f9fb676"},"code":"code3","month":8,"year":2023,"first_expiration":{"$date":"2023-09-20T03:00:00.000Z"},"second_expiration":{"$date":"2023-10-20T03:00:00.000Z"},"surcharge":"0","total_price":"10","quotasPayment":[{"$ref":"quota","$id":{"$oid":"64bc25967e77ae12e743410f"}}]}]
+
+//promotion
+
+[
+  {"_id":{"$oid":"64c7086ef9f4d8d34f9fb6a7"},"code":"ABC123","promotion_title":"Promo de verano","name_store":"Mi Tienda","cuit_store":"123456789","validity_start_date":{"$date":"2023-07-01T03:00:00.000Z"},"validity_end_date":{"$date":"2023-08-01T02:59:59.000Z"},"comments":"Descuento del 20%","type":"D","discount_percentage":20,"_class":"com.tpdbd.cardpurchases.model.Discount","bank":{"$ref":"bank","$id":{"$oid":"64bc24d47e77ae12e74340fc"}},"purchases":[{"$ref":"purchase","$id":{"$oid":"64bc258c7e77ae12e7434109"}},{"$ref":"purchase","$id":{"$oid":"64bc258c7e77ae12e743410a"}}]}
+]

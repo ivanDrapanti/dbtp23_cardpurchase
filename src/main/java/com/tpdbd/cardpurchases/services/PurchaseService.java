@@ -3,14 +3,18 @@ package com.tpdbd.cardpurchases.services;
 import com.tpdbd.cardpurchases.model.MonthlyPayments;
 import com.tpdbd.cardpurchases.model.Purchase;
 import com.tpdbd.cardpurchases.model.Quota;
+import com.tpdbd.cardpurchases.repository.PromotionRepository;
 import com.tpdbd.cardpurchases.repository.PurchaseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PurchaseService {
   private final PurchaseRepository purchaseRepository;
-  public PurchaseService(PurchaseRepository purchaseRepository) {
+  private final PromotionRepository promotionRepository;
+  public PurchaseService(PurchaseRepository purchaseRepository, PromotionRepository promotionRepository) {
     this.purchaseRepository = purchaseRepository;
+    this.promotionRepository = promotionRepository;
   }
 
   public Purchase getPurchase(String type, String id){

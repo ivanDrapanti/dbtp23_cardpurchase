@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.NoSuchElementException;
 
+import static java.util.Objects.isNull;
+
 @Service
 public class PaymentService {
   private final PaymentRepository paymentRepository;
@@ -15,8 +17,8 @@ public class PaymentService {
   }
 
   public Payment updatePayment(String code, Date firstExpiration, Date secondExpiration){
-    Payment payment = paymentRepository.findById(code)
-            .orElseThrow(() -> new NoSuchElementException("Pago no encontrado con el Codigo: " + code));
+    Payment payment = paymentRepository.findByCode(code);
+    if(isNull(payment)) throw new NoSuchElementException("Pago no encontrado con el Codigo: " + code);
 
     payment.setFirstExpiration(firstExpiration);
     payment.setSecondExpiration(secondExpiration);

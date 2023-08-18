@@ -1,18 +1,23 @@
 package com.tpdbd.cardpurchases.repository;
 
-import com.tpdbd.cardpurchases.model.Discount;
 import com.tpdbd.cardpurchases.model.Promotion;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.repository.Aggregation;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.Set;
 
 @Repository
-public interface PromotionRepository extends JpaRepository<Promotion, String> {
-  Set<Promotion> findByValidityStartDateLessThanAndValidityEndDateGreaterThanAndBankCuit(Date startDate, Date endDate, String bankCuit);
+public interface PromotionRepository extends MongoRepository<Promotion, String> {
+  Set<Promotion> findByValidityStartDateLessThanAndValidityEndDateGreaterThanAndBank(Date startDate, Date endDate, String bank);
 
-  @Query("SELECT c FROM Promotion c JOIN c.purchases p GROUP BY c.id ORDER BY COUNT(p) DESC")
+  Promotion deleteByCode(String code);
+  @Aggregation(pipeline = {
+          "{ $project: { totalPurchases: { $size: '$purchases' } } }",
+          "{ $sort: { totalPurchases: -1 } }",
+          "{ $limit: 1 }"
+  })
   Promotion findPromotionWithMaxPurchaseCount();
 }

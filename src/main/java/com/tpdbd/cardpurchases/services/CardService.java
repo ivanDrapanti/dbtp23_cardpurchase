@@ -2,6 +2,9 @@ package com.tpdbd.cardpurchases.services;
 
 import com.tpdbd.cardpurchases.model.*;
 import com.tpdbd.cardpurchases.repository.CardRepository;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -23,10 +26,13 @@ public class CardService {
   }
 
   public List<String> getTop10BestBuyers() {
-    List<Card> cards = cardRepository.findTop10CardsByPurchaseCount();
+
+    AggregationResults<Card> cards = cardRepository.findTop10CardsByPurchaseCount();
     List<String> owners = new ArrayList<>();
-    for (Card card : cards)
-      owners.add("DNI: " + card.getCardHolder().getDni());
+    for (Card card : cards.getMappedResults()){
+      Card card1 = cardRepository.findById(card.getId()).get();
+      owners.add("DNI: " + card1.getCardHolder().getDni());
+    }
     return owners;
   }
 
@@ -68,7 +74,7 @@ public class CardService {
   /**
    * Obtengo todos los Purchases filtrando por mes y año
    */
-  private List<Purchase> getPurchasesByMonthAndYear(Set<Purchase> purchases, int month, int year) {
+  private List<Purchase> getPurchasesByMonthAndYear(List<Purchase> purchases, int month, int year) {
     List<Purchase> result = new ArrayList<>();
 
     Calendar calendar = Calendar.getInstance();

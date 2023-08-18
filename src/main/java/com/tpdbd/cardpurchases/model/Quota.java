@@ -1,14 +1,16 @@
 package com.tpdbd.cardpurchases.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-@Entity
-@Table(name = "quota")
+@Document(collection = "quota")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,28 +18,16 @@ import lombok.Setter;
 public class Quota {
 
   @Id
-  @Column
   private String id;
-
-  @Column
   private int number;
-
-  @Column
   private float price;
-
-  @Column
   private String month;
-
-  @Column
   private String year;
-
-  @ManyToOne
-  @JoinColumn(name = "purchase")
   @JsonIgnore
-  private MonthlyPayments purchase;
-
-  @ManyToOne
-  @JoinColumn(name = "payment")
+  @DBRef
+  @Field("monthly_payments")
+  private MonthlyPayments monthlyPayments;
   @JsonIgnore
+  @DBRef
   private Payment payment;
 }

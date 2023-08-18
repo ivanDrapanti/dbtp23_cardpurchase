@@ -1,30 +1,27 @@
 package com.tpdbd.cardpurchases.model;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Set;
 
-@Entity
+@Document(collection = "purchase")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@DiscriminatorValue("M")
 public class MonthlyPayments extends Purchase {
 
-  @Column
   private float interest;
-
-  @Column
+  @Field("number_of_quotas")
   private int numberOfQuotas;
 
-  @OneToMany(mappedBy = "purchase",
-          fetch = FetchType.EAGER,
-          targetEntity = Quota.class
-  )
+  @DBRef(lazy = true)
   private Set<Quota> quotas;
+
 }

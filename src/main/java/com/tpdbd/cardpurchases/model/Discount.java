@@ -1,26 +1,23 @@
 package com.tpdbd.cardpurchases.model;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-@Entity
+@Document(collection = "promotion")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@DiscriminatorValue("D")
 public class Discount extends Promotion{
 
-    @Column
+    @Field("discount_percentage")
     private Float discountPercentage;
-
-    @Column
+    @Field("price_cap")
     private Float priceCap;
-
-    @Column
+    @Field("only_cash")
     private Boolean onlyCash;
-
 }

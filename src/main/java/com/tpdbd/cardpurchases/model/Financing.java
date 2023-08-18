@@ -1,23 +1,22 @@
 package com.tpdbd.cardpurchases.model;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.PersistenceCreator;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-@Entity
+@Document(collection = "promotion")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@DiscriminatorValue("F")
 public class Financing extends Promotion{
 
-    @Column
+    @Field("number_of_quotas")
     private int numberOfQuotas;
-
-    @Column
     private float interest;
 
 }

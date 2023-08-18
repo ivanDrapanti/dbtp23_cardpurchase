@@ -1,18 +1,24 @@
 package com.tpdbd.cardpurchases.repository;
 
 import com.tpdbd.cardpurchases.model.Card;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.repository.Aggregation;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface CardRepository extends JpaRepository<Card, String> {
+public interface CardRepository extends MongoRepository<Card, String> {
 
   Card findByNumber(String number);
   List<Card> findByExpirationDateBetween(Date startDate, Date endDate);
-  @Query("SELECT c FROM Card c JOIN c.purchases p GROUP BY c.id ORDER BY COUNT(p) DESC")
-  List<Card> findTop10CardsByPurchaseCount();
+  @Aggregation(pipeline = {
+          "{ $unwind: '$purchases' }",
+          "{ $group: { _id: '$_id', totalPurchases: { $sum: 1 } } }",
+          "{ $sort: { totalPurchases: -1 } }",
+          "{ $limit: 10 }"
+  })
+  AggregationResults<Card> findTop10CardsByPurchaseCount();
 }
