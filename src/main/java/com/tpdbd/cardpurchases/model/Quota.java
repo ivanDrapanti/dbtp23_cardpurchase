@@ -16,8 +16,9 @@ import lombok.Setter;
 public class Quota {
 
   @Id
-  @Column
-  private String id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(unique = true)
+  private long id;
 
   @Column
   private int number;

@@ -2,11 +2,14 @@ package com.tpdbd.cardpurchases.services;
 
 import com.tpdbd.cardpurchases.model.*;
 import com.tpdbd.cardpurchases.repository.CardRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 @Service
+@Transactional(readOnly = true)
 public class CardService {
   private final CardRepository cardRepository;
 
@@ -23,7 +26,7 @@ public class CardService {
   }
 
   public List<String> getTop10BestBuyers() {
-    List<Card> cards = cardRepository.findTop10CardsByPurchaseCount();
+    List<Card> cards = cardRepository.findTop10CardsByPurchaseCount(PageRequest.of(0, 10)).getContent();
     List<String> owners = new ArrayList<>();
     for (Card card : cards)
       owners.add("DNI: " + card.getCardHolder().getDni());

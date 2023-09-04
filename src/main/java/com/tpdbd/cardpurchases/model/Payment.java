@@ -23,7 +23,7 @@ import java.util.Set;
 public class Payment {
 
   @Id
-  @Column
+  @Column(unique = true)
   private String code;
 
   @Column
@@ -66,7 +66,7 @@ public class Payment {
   public Set<String> getQuotas(){
     Set<String> ids = new HashSet<>();
     for (Quota quota : quotasPayment) {
-      ids.add(quota.getId());
+      ids.add(String.valueOf(quota.getId()));
     }
     return ids;
   }
@@ -74,7 +74,7 @@ public class Payment {
   public Set<String> getCashPayments(){
     Set<String> ids = new HashSet<>();
     for (CashPayment cashPayment : cashPayments) {
-      ids.add(cashPayment.getId());
+      ids.add(String.valueOf(cashPayment.getId()));
     }
     return ids;
   }

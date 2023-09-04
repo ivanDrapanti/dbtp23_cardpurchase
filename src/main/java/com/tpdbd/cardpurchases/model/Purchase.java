@@ -24,8 +24,9 @@ import java.util.Date;
 public abstract class Purchase {
 
   @Id
-  @Column
-  private String id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(unique = true)
+  private long id;
 
   @Column
   private String paymentVoucher;

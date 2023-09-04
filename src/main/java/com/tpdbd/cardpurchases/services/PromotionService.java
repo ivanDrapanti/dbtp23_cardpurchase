@@ -8,12 +8,14 @@ import com.tpdbd.cardpurchases.repository.BankRepository;
 import com.tpdbd.cardpurchases.repository.PromotionRepository;
 import com.tpdbd.cardpurchases.repository.PurchaseRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
 @Service
+@Transactional
 public class PromotionService {
   private final PromotionRepository promotionRepository;
   private final BankRepository bancoRepository;
@@ -32,13 +34,9 @@ public class PromotionService {
   }
 
   public void deleteDiscount(String code) {
-    checkIfIsUsedByPurchase(code);
-    promotionRepository.deleteById(code);
-  }
-
-  private void checkIfIsUsedByPurchase(String code) {
-    Set<Purchase> purchases = purchaseRepository.findByValidPromotionCode(code);
-    purchases.forEach(v -> v.setValidPromotion(null));
+    Promotion promotion = promotionRepository.findById(code).get();
+    promotion.setActive(false);
+    promotionRepository.save(promotion);
   }
 
   public Set<Promotion> getPromotion(String bank, Date startDate, Date endDate) {

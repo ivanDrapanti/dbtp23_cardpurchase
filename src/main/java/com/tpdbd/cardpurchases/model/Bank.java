@@ -1,10 +1,7 @@
 package com.tpdbd.cardpurchases.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +15,7 @@ import java.util.Set;
 public class Bank {
 
   @Id
-  @Column
+  @Column(unique = true, nullable = false)
   private String cuit;
   @Column(name = "bank_name") //name is reserved by MySQL
   private String name;
@@ -34,8 +31,7 @@ public class Bank {
           orphanRemoval = true,
           targetEntity = Card.class)
   private Set<Card> cards = new HashSet<>(0);
-  @ManyToMany(fetch = FetchType.LAZY,
-          cascade = CascadeType.ALL)
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
           name = "bank_cardholder",
           joinColumns = @JoinColumn(name = "bank_id"),

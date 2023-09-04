@@ -27,7 +27,7 @@ import java.util.Set;
 public abstract class Promotion {
 
   @Id
-  @Column
+  @Column(unique = true)
   private String code;
 
   @Column
@@ -51,6 +51,9 @@ public abstract class Promotion {
 
   @Column
   private String comments;
+
+  @Column
+  private Boolean active;
 
   @Column(name = "type", insertable = false, updatable = false)
   private String type;

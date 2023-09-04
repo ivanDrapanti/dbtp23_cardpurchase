@@ -20,7 +20,7 @@ import java.util.Set;
 public class CardHolder {
 
   @Id
-  @Column
+  @Column(unique = true)
   private String dni;
   @Column
   private String completeName;
@@ -32,7 +32,6 @@ public class CardHolder {
   private String telephone;
   @Column
   private Date entry;
-
   @ManyToMany(fetch = FetchType.LAZY)
   @JsonIgnore
   @JoinTable(

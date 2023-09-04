@@ -5,8 +5,10 @@ import com.tpdbd.cardpurchases.model.Purchase;
 import com.tpdbd.cardpurchases.model.Quota;
 import com.tpdbd.cardpurchases.repository.PurchaseRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(readOnly = true)
 public class PurchaseService {
   private final PurchaseRepository purchaseRepository;
   public PurchaseService(PurchaseRepository purchaseRepository) {

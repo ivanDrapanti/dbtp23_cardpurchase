@@ -21,7 +21,7 @@ import java.util.Set;
 public class Card {
 
   @Id
-  @Column
+  @Column(unique = true)
   private String number;
   @Column
   private String ccv;
@@ -31,14 +31,12 @@ public class Card {
   private Date since;
   @Column
   private Date expirationDate;
-  @ManyToOne(fetch = FetchType.LAZY,
-          cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "bank_cuit")
   @JsonIgnore
   private Bank bank;
 
   @ManyToOne(fetch = FetchType.LAZY,
-          cascade = CascadeType.ALL,
           targetEntity = CardHolder.class)
   @JoinColumn(name = "card_holder_dni")
   @JsonIgnore
@@ -56,7 +54,7 @@ public class Card {
   public Set<String> getPurchasesByIds() {
     Set<String> ids = new HashSet<>();
     for (Purchase purchase : purchases) {
-      ids.add(purchase.getId());
+      ids.add(String.valueOf(purchase.getId()));
     }
     return ids;
   }
