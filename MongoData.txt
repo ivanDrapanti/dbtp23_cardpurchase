@@ -41,10 +41,11 @@
 ]
 
 //payment
-[{"_id":{"$oid":"64c6efe4f9f4d8d34f9fb674"},"code":"code1","month":"6","year":"2023","first_expiration":{"$date":"2023-07-01T18:00:00.000Z"},"second_expiration":{"$date":"2023-08-01T15:00:00.000Z"},"surcharge":0,"total_price":10,"quotasPayment":[{"$ref":"quota","$id":{"$oid":"64bc25967e77ae12e743410d"}}],"cashPayments":[],"_class":"com.tpdbd.cardpurchases.model.Payment"},
-{"_id":{"$oid":"64c6efe4f9f4d8d34f9fb675"},"code":"code2","month":7,"year":2023,"first_expiration":{"$date":"2023-08-20T03:00:00.000Z"},"second_expiration":{"$date":"2023-09-20T03:00:00.000Z"},"surcharge":"0","total_price":"10","quotasPayment":[{"$ref":"quota","$id":{"$oid":"64bc25967e77ae12e743410e"}}]},
-{"_id":{"$oid":"64c6efe4f9f4d8d34f9fb676"},"code":"code3","month":8,"year":2023,"first_expiration":{"$date":"2023-09-20T03:00:00.000Z"},"second_expiration":{"$date":"2023-10-20T03:00:00.000Z"},"surcharge":"0","total_price":"10","quotasPayment":[{"$ref":"quota","$id":{"$oid":"64bc25967e77ae12e743410f"}}]}]
-
+[
+{"_id":{"$oid":"64c6efe4f9f4d8d34f9fb674"},"code":"code1","month":"6","year":"2023","first_expiration":{"$date":"2023-07-01T18:00:00.000Z"},"second_expiration":{"$date":"2023-08-01T15:00:00.000Z"},"surcharge":0,"total_price":10,"quotasPayment":[{"number":4561,"price":"10","month":6,"year":2023,"monthly_payments":{"$ref":"purchase","$id":{"$oid":"64bc24d47e77ae12e74340fd"}},"payment":{"$ref":"payment","$id":{"$oid":"64c6efe4f9f4d8d34f9fb674"}}}],"cashPayments":[],"_class":"com.tpdbd.cardpurchases.model.Payment"},
+{"_id":{"$oid":"64c6efe4f9f4d8d34f9fb675"},"code":"code2","month":7,"year":2023,"first_expiration":{"$date":"2023-08-20T03:00:00.000Z"},"second_expiration":{"$date":"2023-09-20T03:00:00.000Z"},"surcharge":"0","total_price":"10","quotasPayment":[{"number":4562,"price":"10","month":7,"year":2023,"monthly_payments":{"$ref":"purchase","$id":{"$oid":"64bc24d47e77ae12e74340fd"}},"payment":{"$ref":"payment","$id":{"$oid":"64c6efe4f9f4d8d34f9fb675"}}}]},
+{"_id":{"$oid":"64c6efe4f9f4d8d34f9fb676"},"code":"code3","month":8,"year":2023,"first_expiration":{"$date":"2023-09-20T03:00:00.000Z"},"second_expiration":{"$date":"2023-10-20T03:00:00.000Z"},"surcharge":"0","total_price":"10","quotasPayment":[{"number":4563,"price":"10","month":8,"year":2023,"monthly_payments":{"$ref":"purchase","$id":{"$oid":"64bc24d47e77ae12e74340fd"}},"payment":{"$ref":"payment","$id":{"$oid":"64c6efe4f9f4d8d34f9fb676"}}}]}
+]
 //promotion
 
 [

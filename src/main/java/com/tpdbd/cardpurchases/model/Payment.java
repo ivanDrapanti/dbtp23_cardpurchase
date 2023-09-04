@@ -40,11 +40,10 @@ public class Payment {
   private float surcharge;
   @Field("total_price")
   private float totalPrice;
+  private boolean active;
   @JsonIgnore
-  @DBRef
   private Set<Quota> quotasPayment = new HashSet<>();
   @JsonIgnore
-  @DBRef
   private Set<CashPayment> cashPayments = new HashSet<>();
 
   public void addQuota(Quota quota){
